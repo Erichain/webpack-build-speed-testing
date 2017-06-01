@@ -34,7 +34,9 @@ coverage
 
 # production
 build/
-dist/
+dist*
+dll/
+.happypack/
 
 # misc
 .DS_Store
