@@ -14,6 +14,14 @@ function get_vendor_js() {
 echo "Clean previous releases..."
 rm -rf dist-*
 
-webpack --progress -p --config webpack.dll.js
-webpack --progress -p --config webpack.config.js
-get_vendor_js
+if [[ $1 = "dll" ]];
+then
+  echo "Build with DllPlugin and HappyPack..."
+  webpack --progress -p --config webpack.dll.vendor.js
+  webpack --progress -p --config webpack.dll.app.js
+  get_vendor_js
+
+else
+  echo "Build without any plugins..."
+  webpack --progress -p --config webpack.config.js
+fi

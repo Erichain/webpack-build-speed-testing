@@ -1,6 +1,7 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const manifest = require('./dll/vendor-manifest.json');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -35,11 +36,10 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'App',
-      chunks: ['common', 'app'],
+      chunks: ['app'],
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-      filename: 'common.js',
+    new webpack.DllReferencePlugin({
+      manifest,
     }),
   ],
 };
