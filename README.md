@@ -18,7 +18,9 @@ By default, `npm run build` will build without plugins.
 
 If you want to build with Happypack and DllPlugin, just pass a `dll` param:
 
-`npm run build dll`
+``` bash
+npm run build dll
+```
 
 If you are told you haven't permissions to execute the script, run the code below:
 
@@ -28,4 +30,4 @@ $ chmod +x ./script/build.sh
 
 ## License
 
-Released under MIT license.
+Released under the MIT license.
