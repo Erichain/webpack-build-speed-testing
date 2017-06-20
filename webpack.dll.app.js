@@ -2,6 +2,25 @@ const webpack = require('webpack');
 const path = require('path');
 const manifest = require('./dll/vendor-manifest.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HappyPack = require('happypack');
+
+const happyPackPlugin = [
+  new HappyPack({
+    id: 'jsx',
+    threads: 4,
+    loaders: ['babel-loader?presets[]=react,presets[]=latest&compact=false'],
+  }),
+  new HappyPack({
+    id: 'scss',
+    threads: 4,
+    loaders: [
+      'style-loader',
+      'css-loader',
+      'postcss-loader',
+      'sass-loader',
+    ],
+  }),
+];
 
 module.exports = {
   entry: {
@@ -17,19 +36,14 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        loader: ['babel-loader?presets[]=react,presets[]=latest&compact=false'],
+        use: ['happypack/loader?id=jsx'],
       }, {
         test: /\.scss$/,
-        loader: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader',
-          'sass-loader'
-        ],
+        use: ['happypack/loader?id=scss'],
       }, {
         test: /\.jpe?g|png|svg|gif/,
-        loader: ['url-loader?limit=8192&name=assets/images/[name]-[hash].[ext]'],
-      }
+        use: ['url-loader?limit=8192&name=assets/images/[name]-[hash].[ext]'],
+      },
     ],
   },
 
@@ -41,5 +55,5 @@ module.exports = {
     new webpack.DllReferencePlugin({
       manifest,
     }),
-  ],
+  ].concat(happyPackPlugin),
 };
