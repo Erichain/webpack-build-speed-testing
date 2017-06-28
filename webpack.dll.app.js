@@ -8,7 +8,7 @@ const happyPackPlugin = [
   new HappyPack({
     id: 'jsx',
     threads: 4,
-    loaders: ['babel-loader?presets[]=react,presets[]=latest&compact=false'],
+    loaders: ['babel-loader?presets[]=react,presets[]=es2015,presets[]=stage-0'],
   }),
   new HappyPack({
     id: 'scss',
